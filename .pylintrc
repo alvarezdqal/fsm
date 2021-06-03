@@ -1,0 +1,9 @@
+[MESSAGES CONTROL]
+disable=
+    duplicate-code,
+    line-too-long,
+    logging-fstring-interpolation,
+    missing-class-docstring,
+    missing-function-docstring,
+    missing-module-docstring,
+    useless-return,
