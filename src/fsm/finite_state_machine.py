@@ -16,32 +16,24 @@ State = TypeVar("State")  # elements of the 'states'
 
 def validate_alphabet(alphabet: Set[Letter]) -> None:
 
-    # Checking non-empty
-    if not alphabet:
-        raise AlphabetError(f"The passed alphabet is empty: {alphabet}")
-
-    # Checking that set
-    if not isinstance(alphabet, set):
-        raise AlphabetError(f"The passed alphabet is not a set: {alphabet}")
+    # Checking non-empty set
+    if not alphabet or not isinstance(alphabet, set):
+        raise AlphabetError(f"The passed alphabet not a non-empty set: {alphabet}")
 
     # Checking that the elements are same type
     if len(alphabet) > 1:
         types = {type(lett) for lett in alphabet}
         if len(types) > 1:
-            raise StatesError(f"The passed states do not have same type: {types}")
+            raise AlphabetError(f"The passed alphabet do not have same type: {types}")
 
     return
 
 
 def validate_states(states: Set[State]) -> None:
 
-    # Checking non-empty
-    if not states:
-        raise StatesError(f"The passed states is empty: {states}")
-
-    # Checking that set
-    if not isinstance(states, set):
-        raise StatesError(f"The passed states is not a set: {states}")
+    # Checking non-empty set
+    if not states or not isinstance(states, set):
+        raise StatesError(f"The passed states not a non-empty set: {states}")
 
     # Checking that the elements are same type
     if len(states) > 1:
