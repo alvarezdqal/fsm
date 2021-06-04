@@ -31,7 +31,7 @@ class FiniteStateAcceptor(FiniteStateMachine):
     def accepts(self, seq: List[InputLetter], print_path: bool = False) -> bool:
 
         state_map = f"[{self.initial_state}]"
-        current_state = self.initial_state
+        current_state: State = self.initial_state
         for elem in seq:
             try:
                 next_state: State = self.state_transition_function[(current_state, elem)]
