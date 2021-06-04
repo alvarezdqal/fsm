@@ -2,7 +2,7 @@ class AlphabetError(Exception):
     pass
 
 
-class StatesError(Exception):
+class FinalStatesError(Exception):
     pass
 
 
@@ -10,9 +10,9 @@ class InitialStateError(Exception):
     pass
 
 
-class StateTransitionFunctionError(Exception):
+class StatesError(Exception):
     pass
 
 
-class FinalStatesError(Exception):
+class StateTransitionFunctionError(Exception):
     pass
