@@ -145,7 +145,7 @@ class FiniteStateMachine:
             except KeyError:
                 raise TransitionError(
                     "The following encountered (state, input) pair is "
-                    f"undefined in the state trasition fuction: ({current_state},{elem})"
+                    f"undefined in the state transition fuction: ({current_state},{elem})"
                 ) from None
             state_map += f" --({elem})-> [{next_state}]"
             current_state = next_state
