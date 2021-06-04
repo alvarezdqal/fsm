@@ -58,10 +58,40 @@ class TestValidation(TestCase):
         states = {0, 1, 2}
         self.assertIsNone(validate_initial_state(initial_state, states))
 
-    def test_validate_output_function(self):
+    def test_validate_output_function_non_tuple(self):
         pass  # TODO
 
-    def test_validate_state_transition_function(self):
+    def test_validate_output_function_not_len_two(self):
+        pass  # TODO
+
+    def test_validate_output_function_fake_state_arg(self):
+        pass  # TODO
+
+    def test_validate_output_function_fake_letter_arg(self):
+        pass  # TODO
+
+    def test_validate_output_function_fake_state_value(self):
+        pass  # TODO
+
+    def test_validate_output_function_pass(self):
+        pass  # TODO
+
+    def test_validate_state_transition_function_non_tuple(self):
+        pass  # TODO
+
+    def test_validate_state_transition_function_not_len_two(self):
+        pass  # TODO
+
+    def test_validate_state_transition_function_fake_state_arg(self):
+        pass  # TODO
+
+    def test_validate_state_transition_function_fake_letter_arg(self):
+        pass  # TODO
+
+    def test_validate_state_transition_function_fake_state_value(self):
+        pass  # TODO
+
+    def test_validate_state_transition_function_pass(self):
         pass  # TODO
 
     def test_validate_states_non_set(self):
