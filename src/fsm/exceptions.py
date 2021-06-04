@@ -6,11 +6,7 @@ class InitialStateError(Exception):
     pass
 
 
-class InputAlphabetError(Exception):
-    pass
-
-
-class OutputAlphabetError(Exception):
+class AlphabetError(Exception):
     pass
 
 
