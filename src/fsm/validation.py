@@ -19,17 +19,15 @@ def validate_alphabet(alphabet: Set[Union[InputLetter, OutputLetter]]) -> None:
     return
 
 
-def validate_states(states: Set[State]) -> None:
+def validate_final_states(final_states: Set[State], states: Set[State]) -> None:
 
-    # Checking non-empty set
-    if not states or not isinstance(states, set):
-        raise StatesError(f"The passed states not a non-empty set: {states}")
+    # Checking that set
+    if not isinstance(final_states, set):
+        raise FinalStatesError(f"The passed final states is not a set: {final_states}")
 
-    # Checking that elements same type
-    if len(states) > 1:
-        types = {type(s) for s in states}
-        if len(types) > 1:
-            raise StatesError(f"The passed states do not have same type: {types}")
+    # Checking that subset of states
+    if not final_states.issubset(states):
+        raise FinalStatesError(f"The passed set of final states is not a subset of passed states: {final_states}")
 
     return
 
@@ -40,6 +38,10 @@ def validate_initial_state(initial_state: State, states: Set[State]) -> None:
     if initial_state not in states:
         raise InitialStateError(f"The passed initial state is not an element of passed states: '{initial_state}'")
 
+    return
+
+
+def validate_output_function(output_function: Dict[Tuple[State, InputLetter], OutputLetter]) -> None:
     return
 
 
@@ -84,18 +86,16 @@ def validate_state_transition_function(
     return
 
 
-def validate_final_states(final_states: Set[State], states: Set[State]) -> None:
+def validate_states(states: Set[State]) -> None:
 
-    # Checking that set
-    if not isinstance(final_states, set):
-        raise FinalStatesError(f"The passed final states is not a set: {final_states}")
+    # Checking non-empty set
+    if not states or not isinstance(states, set):
+        raise StatesError(f"The passed states not a non-empty set: {states}")
 
-    # Checking that subset of states
-    if not final_states.issubset(states):
-        raise FinalStatesError(f"The passed set of final states is not a subset of passed states: {final_states}")
+    # Checking that elements same type
+    if len(states) > 1:
+        types = {type(s) for s in states}
+        if len(types) > 1:
+            raise StatesError(f"The passed states do not have same type: {types}")
 
-    return
-
-
-def validate_output_function(output_function: Dict[Tuple[State, InputLetter], OutputLetter]) -> None:
     return
