@@ -14,9 +14,9 @@ class StatesError(Exception):
     pass
 
 
-class StateTransitionFunctionError(Exception):
+class StateTransitionError(Exception):
     pass
 
 
-class TransitionError(Exception):
+class StateTransitionFunctionError(Exception):
     pass
