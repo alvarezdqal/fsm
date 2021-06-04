@@ -10,7 +10,7 @@ def validate_alphabet(alphabet: Set[Union[InputLetter, OutputLetter]]) -> None:
     if not alphabet or not isinstance(alphabet, set):
         raise AlphabetError(f"The passed alphabet not a non-empty set: {alphabet}")
 
-    # Checking that the elements are same type
+    # Checking that elements same type
     if len(alphabet) > 1:
         types = {type(lett) for lett in alphabet}
         if len(types) > 1:
@@ -25,7 +25,7 @@ def validate_states(states: Set[State]) -> None:
     if not states or not isinstance(states, set):
         raise StatesError(f"The passed states not a non-empty set: {states}")
 
-    # Checking that the elements are same type
+    # Checking that elements same type
     if len(states) > 1:
         types = {type(s) for s in states}
         if len(types) > 1:
