@@ -1,10 +1,17 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List, Set, Tuple, TypeVar
 
-from fsm.exceptions import AlphabetError, FinalStatesError, InitialStateError, StatesError, StateTransitionFunctionError
+from fsm.exceptions import (
+    AlphabetError,
+    FinalStatesError,
+    InitialStateError,
+    StatesError,
+    StateTransitionFunctionError,
+    TransitionError,
+)
 
 A = TypeVar("A")  # elements of the 'alphabet'
-S = TypeVar("S")  # elements 0f the 'states'
+S = TypeVar("S")  # elements of the 'states'
 
 
 def validate_alphabet(alphabet: Set[A]) -> None:
@@ -62,26 +69,12 @@ def validate_state_transition_function(
     state_transition_function: Dict[Tuple[S, A], S],
     states: Set[S],
     alphabet: Set[A],
-    final_states: Set[S],
 ) -> None:
 
-    # Checking non-empty
-    if not state_transition_function:
-        raise StateTransitionFunctionError(
-            f"The passed state transition function is empty: {state_transition_function}"
-        )
-
-    # Check that dict
-    if not isinstance(state_transition_function, dict):
-        raise StateTransitionFunctionError(
-            f"The passed state transition function is not a dict: {state_transition_function}"
-        )
-
     # Checking that keys tuples of length 2
-    non_tuples_of_length_two = set()
-    for k in state_transition_function.keys():
-        if not isinstance(k, tuple) or len(k) != 2:
-            non_tuples_of_length_two.add(k)
+    non_tuples_of_length_two = set(
+        k for k in state_transition_function.keys() if not isinstance(k, tuple) or len(k) != 2
+    )
     if non_tuples_of_length_two:
         raise StateTransitionFunctionError(
             "The following keys passed to the state transition function are "
@@ -89,13 +82,8 @@ def validate_state_transition_function(
         )
 
     # Checking that keys valid elements of cross-product of states and alphabet
-    non_elements_of_states = set()
-    non_elements_of_alphabet = set()
-    for s, a in state_transition_function.keys():
-        if s not in states:
-            non_elements_of_states.add(s)
-        if a not in alphabet:
-            non_elements_of_alphabet.add(a)
+    non_elements_of_states = set(k[0] for k in state_transition_function.keys()) - states
+    non_elements_of_alphabet = set(k[1] for k in state_transition_function.keys()) - alphabet
     if non_elements_of_states:
         raise StateTransitionFunctionError(
             "The following states passed to the state transition function are "
@@ -107,23 +95,8 @@ def validate_state_transition_function(
             f"not elements of the passed alphebet: {non_elements_of_alphabet}"
         )
 
-    # Checking that all states have mapping
-    undefined_state_letters = set()
-    for s in states - final_states:
-        for a in alphabet:
-            pair = (s, a)
-            if pair not in state_transition_function.keys():
-                undefined_state_letters.add(pair)
-    if undefined_state_letters:
-        raise StateTransitionFunctionError(
-            f"The following cases have not been covered in the state transition function: {undefined_state_letters}"
-        )
-
     # Checking that values valid states
-    non_elements_of_states = set()
-    for v in state_transition_function.values():
-        if v not in states:
-            non_elements_of_states.add(v)
+    non_elements_of_states = set(state_transition_function.values()) - states
     if non_elements_of_states:
         raise StateTransitionFunctionError(
             "The following states passed to the state transition function are "
@@ -166,7 +139,7 @@ class FiniteStateMachine:
         validate_initial_state(initial_state, states)
         self.initial_state = initial_state
 
-        validate_state_transition_function(state_transition_function, states, alphabet, final_states)
+        validate_state_transition_function(state_transition_function, states, alphabet)
         self.state_transition_function = state_transition_function
 
         validate_final_states(final_states, states)
@@ -179,7 +152,12 @@ class FiniteStateMachine:
         state_map = f"[{self.initial_state}]"
         current_state = self.initial_state
         for elem in seq:
-            next_state = self.state_transition_function[(current_state, elem)]
+            try:
+                next_state = self.state_transition_function[(current_state, elem)]
+            except KeyError:
+                raise TransitionError(
+                    f"The following encountered (state, input) pair is undefined: ({current_state},{elem})"
+                ) from None
             state_map += f" --({elem})-> [{next_state}]"
             current_state = next_state
             if current_state in self.final_states:

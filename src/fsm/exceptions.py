@@ -16,3 +16,7 @@ class StatesError(Exception):
 
 class StateTransitionFunctionError(Exception):
     pass
+
+
+class TransitionError(Exception):
+    pass
