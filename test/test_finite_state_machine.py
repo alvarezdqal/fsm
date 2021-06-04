@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from fsm.finite_state_machine import (
+from fsm.finite_state_machine import (  # noqa: F401
     FiniteStateMachine,
     validate_alphabet,
     validate_final_states,

@@ -23,7 +23,7 @@ def main() -> None:
 
     # seq = ["a", "a", "c", "b", "b", "a"]
     seq = ["a", "a", "c", "b", "b", "c"]
-    parses = fsm.parse(seq)
+    parses = fsm.parses(seq)
     as_string = str.join("", seq)
     if parses:
         print(f"The passed sequence '{as_string}' parses")
