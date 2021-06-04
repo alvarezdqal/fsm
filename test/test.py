@@ -21,12 +21,12 @@ def main() -> None:
         final_states={3, 4},
     )
 
-    seq = ["a", "a", "c", "b", "b", "c"]
+    seq = ["a", "a", "c", "a", "b", "c", "c"]
     accepts = fsm.accepts(seq, print_path=True)
     if accepts:
-        print(f"The passed sequence is accepted: {seq}")
+        print("The passed sequence is accepted")
     else:
-        print(f"The passed sequence is not accepted: {seq}")
+        print("The passed sequence is not accepted.")
 
     return
 
