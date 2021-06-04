@@ -24,7 +24,7 @@ def validate_alphabet(alphabet: Set[Letter]) -> None:
     if len(alphabet) > 1:
         types = {type(lett) for lett in alphabet}
         if len(types) > 1:
-            raise AlphabetError(f"The passed alphabet do not have same type: {types}")
+            raise AlphabetError(f"The passed letters do not have same type: {types}")
 
     return
 
@@ -79,7 +79,7 @@ def validate_state_transition_function(
         )
     if non_elements_of_alphabet:
         raise StateTransitionFunctionError(
-            "The following elements passed to the state transition function are "
+            "The following letters passed to the state transition function are "
             f"not elements of the passed alphebet: {non_elements_of_alphabet}"
         )
 
