@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, List, Set, Tuple
+from typing import Dict, Generic, List, Set, Tuple
 
 from fsm.exceptions import StateTransitionError, TransductionError
 from fsm.finite_state_machine import FiniteStateMachine
@@ -8,7 +8,7 @@ from fsm.validation import validate_alphabet, validate_output_function
 
 
 @dataclass
-class FiniteStateTransducer(FiniteStateMachine):
+class FiniteStateTransducer(FiniteStateMachine, Generic[InputLetter, OutputLetter, State]):
     def __init__(
         self,
         input_alphabet: Set[InputLetter],

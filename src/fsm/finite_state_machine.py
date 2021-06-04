@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Set, Tuple
+from typing import Dict, Generic, Set, Tuple
 
 from fsm.typing import InputLetter, State
 from fsm.validation import (
@@ -11,7 +11,7 @@ from fsm.validation import (
 
 
 @dataclass
-class FiniteStateMachine:
+class FiniteStateMachine(Generic[InputLetter, State]):
     def __init__(
         self,
         input_alphabet: Set[InputLetter],
