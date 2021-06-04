@@ -14,7 +14,7 @@ Letter = TypeVar("Letter")  # elements of the 'alphabet'
 State = TypeVar("State")  # elements of the 'states'
 
 
-def validate_alphabet(alphabet: Set[Letter]) -> None:
+def __validate_alphabet(alphabet: Set[Letter]) -> None:
 
     # Checking non-empty set
     if not alphabet or not isinstance(alphabet, set):
@@ -29,7 +29,7 @@ def validate_alphabet(alphabet: Set[Letter]) -> None:
     return
 
 
-def validate_states(states: Set[State]) -> None:
+def __validate_states(states: Set[State]) -> None:
 
     # Checking non-empty set
     if not states or not isinstance(states, set):
@@ -44,7 +44,7 @@ def validate_states(states: Set[State]) -> None:
     return
 
 
-def validate_initial_state(initial_state: State, states: Set[State]) -> None:
+def __validate_initial_state(initial_state: State, states: Set[State]) -> None:
 
     # Checking that initial state in states
     if initial_state not in states:
@@ -53,7 +53,7 @@ def validate_initial_state(initial_state: State, states: Set[State]) -> None:
     return
 
 
-def validate_state_transition_function(
+def __validate_state_transition_function(
     state_transition_function: Dict[Tuple[State, Letter], State],
     states: Set[State],
     alphabet: Set[Letter],
@@ -94,7 +94,7 @@ def validate_state_transition_function(
     return
 
 
-def validate_final_states(final_states: Set[State], states: Set[State]) -> None:
+def __validate_final_states(final_states: Set[State], states: Set[State]) -> None:
 
     # Checking that set
     if not isinstance(final_states, set):
@@ -118,19 +118,19 @@ class FiniteStateMachine:
         final_states: Set[State],
     ) -> None:
 
-        validate_alphabet(alphabet)
+        __validate_alphabet(alphabet)
         self.alphabet = alphabet
 
-        validate_states(states)
+        __validate_states(states)
         self.states = states
 
-        validate_initial_state(initial_state, states)
+        __validate_initial_state(initial_state, states)
         self.initial_state = initial_state
 
-        validate_state_transition_function(state_transition_function, states, alphabet)
+        __validate_state_transition_function(state_transition_function, states, alphabet)
         self.state_transition_function = state_transition_function
 
-        validate_final_states(final_states, states)
+        __validate_final_states(final_states, states)
         self.final_states = final_states
 
         return
