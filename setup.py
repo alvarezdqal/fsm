@@ -6,7 +6,7 @@ PACKAGE_NAME = "fsm"
 setup(
     name=PACKAGE_NAME,
     version="1.0",
-    description="Package containing finite state machine",
+    description="Package containing finite state machines",
     author="David Alvarez Lombardi",
     author_email="alvarezdqal@gmail.com",
     url="https://github.com/alvarezdqal/fsm",

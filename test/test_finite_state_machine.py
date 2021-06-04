@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from fsm.finite_state_machine import (  # noqa: F401
-    FiniteStateMachine,
+from fsm.finite_state_acceptor import (  # noqa: F401
+    FiniteStateAcceptor,
     validate_alphabet,
     validate_final_states,
     validate_initial_state,
@@ -10,5 +10,5 @@ from fsm.finite_state_machine import (  # noqa: F401
 )
 
 
-class TestFiniteStateMachine(TestCase):
+class TestFiniteStateAcceptor(TestCase):
     pass

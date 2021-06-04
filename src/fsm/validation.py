@@ -42,6 +42,7 @@ def validate_initial_state(initial_state: State, states: Set[State]) -> None:
 
 
 def validate_output_function(output_function: Dict[Tuple[State, InputLetter], OutputLetter]) -> None:
+    # TODO
     return
 
 

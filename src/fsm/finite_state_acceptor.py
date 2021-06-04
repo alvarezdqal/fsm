@@ -13,7 +13,7 @@ from fsm.validation import (
 
 
 @dataclass
-class FiniteStateMachine:
+class FiniteStateAcceptor:
     def __init__(
         self,
         input_alphabet: Set[InputLetter],

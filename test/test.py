@@ -1,9 +1,9 @@
-from fsm.finite_state_machine import FiniteStateMachine
+from fsm.finite_state_acceptor import FiniteStateAcceptor
 
 
 def main() -> None:
 
-    fsm = FiniteStateMachine(
+    fsa = FiniteStateAcceptor(
         input_alphabet={"hello", "there", "world"},
         states={0, 1, 2, 3, 4},
         initial_state=0,
@@ -22,7 +22,7 @@ def main() -> None:
     )
 
     seq = ["hello", "hello", "world", "hello", "there", "world", "world"]
-    accepts = fsm.accepts(seq, print_path=True)
+    accepts = fsa.accepts(seq, print_path=True)
     if accepts:
         print("The passed sequence is accepted")
     else:
