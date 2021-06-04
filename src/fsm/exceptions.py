@@ -1,16 +1,16 @@
-class AlphabetError(Exception):
+class AlphabetInitialisationError(Exception):
     pass
 
 
-class FinalStatesError(Exception):
+class FinalStatesInitialisationError(Exception):
     pass
 
 
-class InitialStateError(Exception):
+class InitialStateInitialisationError(Exception):
     pass
 
 
-class StatesError(Exception):
+class StatesInitialisationError(Exception):
     pass
 
 
@@ -18,5 +18,5 @@ class StateTransitionError(Exception):
     pass
 
 
-class StateTransitionFunctionError(Exception):
+class StateTransitionFunctionInitialisationError(Exception):
     pass
