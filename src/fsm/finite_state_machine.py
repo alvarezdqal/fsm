@@ -56,7 +56,10 @@ def validate_initial_state(initial_state: str, states: Set[str]) -> None:
 
 
 def validate_state_transition_function(
-    state_transition_function: Dict[Tuple[str, str], str], states: Set[str], alphabet: Set[str], final_states: Set[str]
+    state_transition_function: Dict[Tuple[str, str], str],
+    states: Set[str],
+    alphabet: Set[str],
+    final_states: Set[str],
 ) -> None:
 
     # Checking non-empty
