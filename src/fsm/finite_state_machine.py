@@ -135,7 +135,7 @@ class FiniteStateMachine:
 
         return
 
-    def accepts(self, seq: List[Letter]) -> bool:
+    def accepts(self, seq: List[Letter], print_path: bool = False) -> bool:
 
         state_map = f"[{self.initial_state}]"
         current_state = self.initial_state
@@ -147,11 +147,12 @@ class FiniteStateMachine:
                     "The following encountered (state, input) pair is "
                     f"undefined in the state transition fuction: ({current_state},{elem})"
                 ) from None
-            state_map += f" --({elem})-> [{next_state}]"
             current_state = next_state
+            state_map += f" --({elem})-> [{current_state}]"
             if current_state in self.final_states:
                 break
 
-        print(state_map)
+        if print_path:
+            print(state_map)
 
         return current_state in self.final_states
