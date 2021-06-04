@@ -23,10 +23,10 @@ def main() -> None:
 
     # seq = ["a", "a", "c", "b", "b", "a"]
     seq = ["a", "a", "c", "b", "b", "c"]
-    parses = fsm.parses(seq)
+    accepts = fsm.accepts(seq)
     as_string = str.join("", seq)
-    if parses:
-        print(f"The passed sequence '{as_string}' parses")
+    if accepts:
+        print(f"The passed sequence '{as_string}' accepts")
     else:
         print(f"The passed sequence '{as_string}' does not parse")
 

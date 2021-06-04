@@ -143,7 +143,7 @@ class FiniteStateMachine:
 
         return
 
-    def parses(self, seq: List[Letter]) -> bool:
+    def accepts(self, seq: List[Letter]) -> bool:
 
         state_map = f"[{self.initial_state}]"
         current_state = self.initial_state
