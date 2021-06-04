@@ -15,7 +15,7 @@ class FiniteStateTransducer(FiniteStateMachine):
         states: Set[State],
         initial_state: State,
         state_transition_function: Dict[Tuple[State, InputLetter], State],
-        output_alphabet: Set[InputLetter],
+        output_alphabet: Set[OutputLetter],
         output_function: Dict[Tuple[State, InputLetter], OutputLetter],
     ) -> None:
 
