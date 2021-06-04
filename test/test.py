@@ -5,23 +5,22 @@ def main() -> None:
 
     fsm = FiniteStateMachine(
         alphabet={"a", "b", "c"},
-        states={"i", "x", "y", "t1", "t2"},
-        initial_state="i",
+        states={0, 1, 2, 3, 4},
+        initial_state=0,
         state_transition_function={
-            ("i", "a"): "i",
-            ("i", "b"): "x",
-            ("i", "c"): "y",
-            ("x", "a"): "t1",
-            ("x", "b"): "t2",
-            ("x", "c"): "x",
-            ("y", "a"): "y",
-            ("y", "b"): "i",
-            ("y", "c"): "t2",
+            (0, "a"): 0,
+            (0, "b"): 1,
+            (0, "c"): 2,
+            (1, "a"): 3,
+            (1, "b"): 4,
+            (1, "c"): 1,
+            (2, "a"): 2,
+            (2, "b"): 0,
+            (2, "c"): 4,
         },
-        final_states={"t1", "t2"},
+        final_states={3, 4},
     )
 
-    # seq = ["a", "a", "c", "b", "b", "a"]
     seq = ["a", "a", "c", "b", "b", "c"]
     accepts = fsm.accepts(seq, print_path=True)
     if accepts:
