@@ -1,11 +1,10 @@
-from types import Union
-from typing import Dict, Set, Tuple
+from typing import Dict, Set, Tuple, Union
 
 from fsm.exceptions import AlphabetError, FinalStatesError, InitialStateError, StatesError, StateTransitionFunctionError
 from fsm.typing import InputLetter, OutputLetter, State
 
 
-def _validate_alphabet(alphabet: Set[Union[InputLetter, OutputLetter]]) -> None:
+def validate_alphabet(alphabet: Set[Union[InputLetter, OutputLetter]]) -> None:
 
     # Checking non-empty set
     if not alphabet or not isinstance(alphabet, set):
@@ -20,7 +19,7 @@ def _validate_alphabet(alphabet: Set[Union[InputLetter, OutputLetter]]) -> None:
     return
 
 
-def _validate_states(states: Set[State]) -> None:
+def validate_states(states: Set[State]) -> None:
 
     # Checking non-empty set
     if not states or not isinstance(states, set):
@@ -35,7 +34,7 @@ def _validate_states(states: Set[State]) -> None:
     return
 
 
-def _validate_initial_state(initial_state: State, states: Set[State]) -> None:
+def validate_initial_state(initial_state: State, states: Set[State]) -> None:
 
     # Checking that initial state in states
     if initial_state not in states:
@@ -44,7 +43,7 @@ def _validate_initial_state(initial_state: State, states: Set[State]) -> None:
     return
 
 
-def _validate_state_transition_function(
+def validate_state_transition_function(
     state_transition_function: Dict[Tuple[State, InputLetter], State],
     states: Set[State],
     input_alphabet: Set[InputLetter],
@@ -85,7 +84,7 @@ def _validate_state_transition_function(
     return
 
 
-def _validate_final_states(final_states: Set[State], states: Set[State]) -> None:
+def validate_final_states(final_states: Set[State], states: Set[State]) -> None:
 
     # Checking that set
     if not isinstance(final_states, set):
@@ -98,5 +97,5 @@ def _validate_final_states(final_states: Set[State], states: Set[State]) -> None
     return
 
 
-def _validate_output_function() -> None:
+def validate_output_function(output_function: Dict[Tuple[State, InputLetter], OutputLetter]) -> None:
     return

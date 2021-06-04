@@ -1,8 +1,8 @@
 from typing import Dict, List, Set, Tuple
 
-from fsm.exceptions import OutputAlphabetError
 from fsm.finite_state_machine import FiniteStateMachine
 from fsm.typing import InputLetter, OutputLetter, State
+from fsm.validation import validate_alphabet, validate_output_function
 
 
 class FiniteStateTransducer(FiniteStateMachine):
@@ -24,10 +24,10 @@ class FiniteStateTransducer(FiniteStateMachine):
             final_states=set(),
         )
 
-        _validate_output_aphabet()
+        validate_alphabet(output_aphabet)
         self.output_aphabet = output_aphabet
 
-        _validate_output_function()
+        validate_output_function(output_function)
         self.output_function = output_function
 
         return

@@ -1,7 +1,15 @@
 from dataclasses import dataclass
 from typing import Dict, List, Set, Tuple
 
+from fsm.exceptions import TransitionError
 from fsm.typing import InputLetter, State
+from fsm.validation import (
+    validate_alphabet,
+    validate_final_states,
+    validate_initial_state,
+    validate_state_transition_function,
+    validate_states,
+)
 
 
 @dataclass
@@ -15,19 +23,19 @@ class FiniteStateMachine:
         final_states: Set[State],
     ) -> None:
 
-        _validate_input_alphabet(input_alphabet)
+        validate_alphabet(input_alphabet)
         self.input_alphabet = input_alphabet
 
-        _validate_states(states)
+        validate_states(states)
         self.states = states
 
-        _validate_initial_state(initial_state, states)
+        validate_initial_state(initial_state, states)
         self.initial_state = initial_state
 
-        _validate_state_transition_function(state_transition_function, states, input_alphabet)
+        validate_state_transition_function(state_transition_function, states, input_alphabet)
         self.state_transition_function = state_transition_function
 
-        _validate_final_states(final_states, states)
+        validate_final_states(final_states, states)
         self.final_states = final_states
 
         return
