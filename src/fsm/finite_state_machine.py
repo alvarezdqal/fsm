@@ -11,7 +11,7 @@ def validate_alphabet(alphabet: Set[A]) -> None:
 
     # Checking non-empty
     if not alphabet:
-        raise AlphabetError(f"The passed alphabet is empty: '{alphabet}'")
+        raise AlphabetError(f"The passed alphabet is empty: {alphabet}")
 
     # Checking that set
     if not isinstance(alphabet, set):
@@ -32,7 +32,7 @@ def validate_states(states: Set[S]) -> None:
 
     # Checking non-empty
     if not states:
-        raise StatesError(f"The passed states is empty: '{states}'")
+        raise StatesError(f"The passed states is empty: {states}")
 
     # Checking that set
     if not isinstance(states, set):
@@ -68,13 +68,13 @@ def validate_state_transition_function(
     # Checking non-empty
     if not state_transition_function:
         raise StateTransitionFunctionError(
-            f"The passed state transition function is empty: '{state_transition_function}'"
+            f"The passed state transition function is empty: {state_transition_function}"
         )
 
     # Check that dict
     if not isinstance(state_transition_function, dict):
         raise StateTransitionFunctionError(
-            f"The passed state transition function is not a dict: '{state_transition_function}'"
+            f"The passed state transition function is not a dict: {state_transition_function}"
         )
 
     # Checking that keys tuples of length 2
@@ -182,7 +182,7 @@ class FiniteStateMachine:
             next_state = self.state_transition_function[(current_state, elem)]
             state_map += f" --({elem})-> [{next_state}]"
             current_state = next_state
-            if next_state in self.final_states:
+            if current_state in self.final_states:
                 break
 
         print(state_map)
