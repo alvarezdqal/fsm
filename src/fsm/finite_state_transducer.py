@@ -23,7 +23,14 @@ class FiniteStateTransducer(FiniteStateMachine):
         output_aphabet: Set[Letter],
         output_function: Dict[Tuple[State, Letter], OutputLetter],
     ) -> None:
-        super().__init__(alphabet, states, initial_state, state_transition_function, final_states)
+
+        super().__init__(
+            alphabet=alphabet,
+            states=states,
+            initial_state=initial_state,
+            state_transition_function=state_transition_function,
+            final_states=final_states,
+        )
 
         _validate_output_aphabet()
         self.output_aphabet = output_aphabet
