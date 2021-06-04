@@ -98,7 +98,7 @@ def __validate_final_states(final_states: Set[State], states: Set[State]) -> Non
 
     # Checking that set
     if not isinstance(final_states, set):
-        raise FinalStatesError(f"The passed final states if not a set: {final_states}")
+        raise FinalStatesError(f"The passed final states is not a set: {final_states}")
 
     # Checking that subset of states
     if not final_states.issubset(states):
@@ -144,7 +144,8 @@ class FiniteStateMachine:
                 next_state = self.state_transition_function[(current_state, elem)]
             except KeyError:
                 raise TransitionError(
-                    f"The following encountered (state, input) pair is undefined: ({current_state},{elem})"
+                    "The following encountered (state, input) pair is "
+                    f"undefined in the state trasition fuction: ({current_state},{elem})"
                 ) from None
             state_map += f" --({elem})-> [{next_state}]"
             current_state = next_state
