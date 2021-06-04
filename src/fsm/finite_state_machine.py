@@ -3,8 +3,8 @@ from typing import Any, Dict, List, Set, Tuple, TypeVar
 
 from fsm.exceptions import AlphabetError, FinalStatesError, InitialStateError, StatesError, StateTransitionFunctionError
 
-A = TypeVar("A")
-S = TypeVar("S")
+A = TypeVar("A")  # elements of the 'alphabet'
+S = TypeVar("S")  # elements 0f the 'states'
 
 
 def validate_alphabet(alphabet: Set[A]) -> None:
