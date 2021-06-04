@@ -20,7 +20,7 @@ fsa = FiniteStateAcceptor(
 
 
 class TestFiniteStateAcceptor(TestCase):
-    def test_accepts_undefined(self):
+    def test_accepts_undefined_transition(self):
         seq = ["b", "a"]
         self.assertRaises(StateTransitionError, fsa.accepts, seq)
 
