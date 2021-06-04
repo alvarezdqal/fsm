@@ -12,9 +12,4 @@ setup(
     url="https://github.com/alvarezdqal/fsm",
     package_dir={"": "src"},
     packages=find_packages(where="src"),
-    # entry_points={
-    #     "console_scripts": [
-    #         "",
-    #     ]
-    # },
 )
