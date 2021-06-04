@@ -1,6 +1,11 @@
 from unittest import TestCase
 
-from fsm.exceptions import AlphabetInitialisationError, FinalStatesInitialisationError, InitialStateInitialisationError
+from fsm.exceptions import (
+    AlphabetInitialisationError,
+    FinalStatesInitialisationError,
+    InitialStateInitialisationError,
+    StatesInitialisationError,
+)
 from fsm.validation import (
     validate_alphabet,
     validate_final_states,
@@ -54,10 +59,23 @@ class TestValidation(TestCase):
         self.assertIsNone(validate_initial_state(initial_state, states))
 
     def test_validate_output_function(self):
-        pass
+        pass  # TODO
 
     def test_validate_state_transition_function(self):
-        pass
+        pass  # TODO
 
-    def test_validate_states(self):
-        pass
+    def test_validate_states_non_set(self):
+        states = []
+        self.assertRaises(StatesInitialisationError, validate_states, states)
+
+    def test_validate_states_empty(self):
+        states = set()
+        self.assertRaises(StatesInitialisationError, validate_states, states)
+
+    def test_validate_states_different_types(self):
+        states = {3, "a", 7.2}
+        self.assertRaises(StatesInitialisationError, validate_states, states)
+
+    def test_validate_states_pass(self):
+        states = {4, 9, 0}
+        self.assertIsNone(validate_states(states))
