@@ -41,7 +41,6 @@ class FiniteStateAcceptor(FiniteStateMachine):
                     "The following encountered (state, input) pair is "
                     f"undefined in the state transition fuction: ({current_state},{elem})"
                 ) from None
-
             current_state = next_state
 
             state_map += f" --({elem})-> [{current_state}]"
