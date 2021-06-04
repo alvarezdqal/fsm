@@ -34,7 +34,7 @@ class FiniteStateAcceptor(FiniteStateMachine):
         current_state = self.initial_state
         for elem in seq:
             try:
-                next_state = self.state_transition_function[(current_state, elem)]
+                next_state: State = self.state_transition_function[(current_state, elem)]
             except KeyError:
                 raise StateTransitionError(
                     "The following encountered (state, input) pair is "
