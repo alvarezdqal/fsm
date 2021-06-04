@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, List, Set, Tuple, TypeVar
+from typing import Dict, List, Set, Tuple
 
 from fsm.exceptions import (
     AlphabetError,
@@ -9,9 +9,7 @@ from fsm.exceptions import (
     StateTransitionFunctionError,
     TransitionError,
 )
-
-Letter = TypeVar("Letter")  # elements of the 'alphabet'
-State = TypeVar("State")  # elements of the 'states'
+from fsm.typing import Letter, State
 
 
 def _validate_alphabet(alphabet: Set[Letter]) -> None:
