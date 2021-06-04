@@ -10,11 +10,11 @@ from fsm.exceptions import (
     TransitionError,
 )
 
-A = TypeVar("A")  # elements of the 'alphabet'
-S = TypeVar("S")  # elements of the 'states'
+Letter = TypeVar("Letter")  # elements of the 'alphabet'
+State = TypeVar("State")  # elements of the 'states'
 
 
-def validate_alphabet(alphabet: Set[A]) -> None:
+def validate_alphabet(alphabet: Set[Letter]) -> None:
 
     # Checking non-empty
     if not alphabet:
@@ -26,14 +26,14 @@ def validate_alphabet(alphabet: Set[A]) -> None:
 
     # Checking that the elements are same type
     if len(alphabet) > 1:
-        types = {type(a) for a in alphabet}
+        types = {type(lett) for lett in alphabet}
         if len(types) > 1:
             raise StatesError(f"The passed states do not have same type: {types}")
 
     return
 
 
-def validate_states(states: Set[S]) -> None:
+def validate_states(states: Set[State]) -> None:
 
     # Checking non-empty
     if not states:
@@ -52,7 +52,7 @@ def validate_states(states: Set[S]) -> None:
     return
 
 
-def validate_initial_state(initial_state: S, states: Set[S]) -> None:
+def validate_initial_state(initial_state: State, states: Set[State]) -> None:
 
     # Checking that initial state in states
     if initial_state not in states:
@@ -62,9 +62,9 @@ def validate_initial_state(initial_state: S, states: Set[S]) -> None:
 
 
 def validate_state_transition_function(
-    state_transition_function: Dict[Tuple[S, A], S],
-    states: Set[S],
-    alphabet: Set[A],
+    state_transition_function: Dict[Tuple[State, Letter], State],
+    states: Set[State],
+    alphabet: Set[Letter],
 ) -> None:
 
     # Checking that keys tuples of length 2
@@ -102,7 +102,7 @@ def validate_state_transition_function(
     return
 
 
-def validate_final_states(final_states: Set[S], states: Set[S]) -> None:
+def validate_final_states(final_states: Set[State], states: Set[State]) -> None:
 
     # Checking that set
     if not isinstance(final_states, set):
@@ -119,11 +119,11 @@ def validate_final_states(final_states: Set[S], states: Set[S]) -> None:
 class FiniteStateMachine:
     def __init__(
         self,
-        alphabet: Set[A],
-        states: Set[S],
-        initial_state: S,
-        state_transition_function: Dict[Tuple[S, A], S],
-        final_states: Set[S],
+        alphabet: Set[Letter],
+        states: Set[State],
+        initial_state: State,
+        state_transition_function: Dict[Tuple[State, Letter], State],
+        final_states: Set[State],
     ) -> None:
 
         validate_alphabet(alphabet)
@@ -143,7 +143,7 @@ class FiniteStateMachine:
 
         return
 
-    def parses(self, seq: List[A]) -> bool:
+    def parses(self, seq: List[Letter]) -> bool:
 
         state_map = f"[{self.initial_state}]"
         current_state = self.initial_state
