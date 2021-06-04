@@ -1,4 +1,4 @@
-from typing import Dict, Set, Tuple
+from typing import Dict, List, Set, Tuple
 
 from fsm.finite_state_machine import FiniteStateMachine
 from fsm.typing import Letter, OutputLetter, State
@@ -30,3 +30,8 @@ class FiniteStateTransducer(FiniteStateMachine):
 
         _validate_output_function()
         self.output_function = output_function
+
+        return
+
+    def transduce(self, seq: List[Letter]) -> List[OutputLetter]:
+        pass
