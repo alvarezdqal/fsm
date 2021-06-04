@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import Dict, List, Set, Tuple
 
-from fsm.finite_state_acceptor import FiniteStateAcceptor
+from fsm.finite_state_machine import FiniteStateMachine
 from fsm.typing import InputLetter, OutputLetter, State
 from fsm.validation import validate_alphabet, validate_output_function
 
 
 @dataclass
-class FiniteStateTransducer(FiniteStateAcceptor):
+class FiniteStateTransducer(FiniteStateMachine):
     def __init__(
         self,
         input_alphabet: Set[InputLetter],
@@ -23,7 +23,6 @@ class FiniteStateTransducer(FiniteStateAcceptor):
             states=states,
             initial_state=initial_state,
             state_transition_function=state_transition_function,
-            final_states=set(),
         )
 
         validate_alphabet(output_aphabet)
