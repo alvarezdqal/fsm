@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Set, Tuple, TypeVar
+from typing import Dict, List, Set, Tuple, TypeVar
 
 from fsm.exceptions import (
     AlphabetError,
@@ -24,13 +24,11 @@ def validate_alphabet(alphabet: Set[A]) -> None:
     if not isinstance(alphabet, set):
         raise AlphabetError(f"The passed alphabet is not a set: {alphabet}")
 
-    # Checking that the elements are strings
-    non_strings: Set[Any] = set()
-    for letter in alphabet:
-        if not isinstance(letter, str):  # TODO make this more flexible
-            non_strings.add(letter)
-    if non_strings:
-        raise AlphabetError(f"The following elements of the passed alphabet are not strings: {non_strings}")
+    # Checking that the elements are same type
+    if len(alphabet) > 1:
+        types = {type(a) for a in alphabet}
+        if len(types) > 1:
+            raise StatesError(f"The passed states do not have same type: {types}")
 
     return
 
@@ -45,13 +43,11 @@ def validate_states(states: Set[S]) -> None:
     if not isinstance(states, set):
         raise StatesError(f"The passed states is not a set: {states}")
 
-    # Checking that the elements are strings
-    non_strings: Set[Any] = set()
-    for state in states:
-        if not isinstance(state, str):  # TODO make this more flexible
-            non_strings.add(state)
-    if non_strings:
-        raise StatesError(f"The following elements of the passed states are not strings: {non_strings}")
+    # Checking that the elements are same type
+    if len(states) > 1:
+        types = {type(s) for s in states}
+        if len(types) > 1:
+            raise StatesError(f"The passed states do not have same type: {types}")
 
     return
 
