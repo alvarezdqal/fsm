@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from fsm.exceptions import AlphabetInitialisationError
+from fsm.exceptions import AlphabetInitialisationError, FinalStatesInitialisationError
 from fsm.validation import (
     validate_alphabet,
     validate_final_states,
@@ -12,8 +12,12 @@ from fsm.validation import (
 
 
 class TestValidation(TestCase):
+    def test_validate_alphabet_non_set(self):
+        alphabet = []
+        self.assertRaises(AlphabetInitialisationError, validate_alphabet, alphabet)
+
     def test_validate_alphabet_empty(self):
-        alphabet = {}
+        alphabet = set()
         self.assertRaises(AlphabetInitialisationError, validate_alphabet, alphabet)
 
     def test_validate_alphabet_different_types(self):
@@ -24,8 +28,20 @@ class TestValidation(TestCase):
         alphabet = {4, 9, 0}
         self.assertIsNone(validate_alphabet(alphabet))
 
+    def test_validate_final_states_non_set(self):
+        final_states = []
+        states = {0, 1, 2}
+        self.assertRaises(FinalStatesInitialisationError, validate_final_states, final_states, states)
+
+    def test_validate_final_states_not_subset(self):
+        final_states = {1, 2, 3}
+        states = {0, 1, 2}
+        self.assertRaises(FinalStatesInitialisationError, validate_final_states, final_states, states)
+
     def test_validate_final_states(self):
-        pass
+        final_states = {0, 1}
+        states = {0, 1, 2}
+        self.assertIsNone(validate_final_states(final_states, states))
 
     def test_validate_initial_state(self):
         pass
