@@ -10,6 +10,10 @@ class InputAlphabetError(Exception):
     pass
 
 
+class OutputAlphabetError(Exception):
+    pass
+
+
 class StatesError(Exception):
     pass
 
