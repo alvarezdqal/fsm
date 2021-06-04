@@ -1,12 +1,12 @@
-class AlphabetError(Exception):
-    pass
-
-
 class FinalStatesError(Exception):
     pass
 
 
 class InitialStateError(Exception):
+    pass
+
+
+class InputAlphabetError(Exception):
     pass
 
 

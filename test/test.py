@@ -4,7 +4,7 @@ from fsm.finite_state_machine import FiniteStateMachine
 def main() -> None:
 
     fsm = FiniteStateMachine(
-        alphabet={"hello", "there", "world"},
+        input_alphabet={"hello", "there", "world"},
         states={0, 1, 2, 3, 4},
         initial_state=0,
         state_transition_function={

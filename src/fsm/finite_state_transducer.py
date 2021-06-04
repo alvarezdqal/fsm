@@ -1,7 +1,7 @@
 from typing import Dict, List, Set, Tuple
 
 from fsm.finite_state_machine import FiniteStateMachine
-from fsm.typing import Letter, OutputLetter, State
+from fsm.typing import InputLetter, OutputLetter, State
 
 
 def _validate_output_aphabet() -> None:
@@ -15,17 +15,17 @@ def _validate_output_function() -> None:
 class FiniteStateTransducer(FiniteStateMachine):
     def __init__(
         self,
-        alphabet: Set[Letter],
+        input_alphabet: Set[InputLetter],
         states: Set[State],
         initial_state: State,
-        state_transition_function: Dict[Tuple[State, Letter], State],
-        final_states: Set[State],
-        output_aphabet: Set[Letter],
-        output_function: Dict[Tuple[State, Letter], OutputLetter],
+        state_transition_function: Dict[Tuple[State, InputLetter], State],
+        final_states: Set[InputLetter],
+        output_aphabet: Set[InputLetter],
+        output_function: Dict[Tuple[State, InputLetter], OutputLetter],
     ) -> None:
 
         super().__init__(
-            alphabet=alphabet,
+            input_alphabet=input_alphabet,
             states=states,
             initial_state=initial_state,
             state_transition_function=state_transition_function,
@@ -40,5 +40,5 @@ class FiniteStateTransducer(FiniteStateMachine):
 
         return
 
-    def transduce(self, seq: List[Letter]) -> List[OutputLetter]:
+    def transduce(self, seq: List[InputLetter]) -> List[OutputLetter]:
         pass

@@ -2,27 +2,27 @@ from dataclasses import dataclass
 from typing import Dict, List, Set, Tuple
 
 from fsm.exceptions import (
-    AlphabetError,
     FinalStatesError,
     InitialStateError,
+    InputAlphabetError,
     StatesError,
     StateTransitionFunctionError,
     TransitionError,
 )
-from fsm.typing import Letter, State
+from fsm.typing import InputLetter, State
 
 
-def _validate_alphabet(alphabet: Set[Letter]) -> None:
+def _validate_input_alphabet(input_alphabet: Set[InputLetter]) -> None:
 
     # Checking non-empty set
-    if not alphabet or not isinstance(alphabet, set):
-        raise AlphabetError(f"The passed alphabet not a non-empty set: {alphabet}")
+    if not input_alphabet or not isinstance(input_alphabet, set):
+        raise InputAlphabetError(f"The passed input_alphabet not a non-empty set: {input_alphabet}")
 
     # Checking that the elements are same type
-    if len(alphabet) > 1:
-        types = {type(lett) for lett in alphabet}
+    if len(input_alphabet) > 1:
+        types = {type(lett) for lett in input_alphabet}
         if len(types) > 1:
-            raise AlphabetError(f"The passed letters do not have same type: {types}")
+            raise InputAlphabetError(f"The passed letters do not have same type: {types}")
 
     return
 
@@ -52,9 +52,9 @@ def _validate_initial_state(initial_state: State, states: Set[State]) -> None:
 
 
 def _validate_state_transition_function(
-    state_transition_function: Dict[Tuple[State, Letter], State],
+    state_transition_function: Dict[Tuple[State, InputLetter], State],
     states: Set[State],
-    alphabet: Set[Letter],
+    input_alphabet: Set[InputLetter],
 ) -> None:
 
     # Checking that keys tuples of length 2
@@ -67,18 +67,18 @@ def _validate_state_transition_function(
             f"not tuples of length 2: {non_tuples_of_length_two}"
         )
 
-    # Checking that keys valid elements of cross-product of states and alphabet
+    # Checking that keys valid elements of cross-product of states and input_alphabet
     non_elements_of_states = set(k[0] for k in state_transition_function.keys()) - states
-    non_elements_of_alphabet = set(k[1] for k in state_transition_function.keys()) - alphabet
+    non_elements_of_input_alphabet = set(k[1] for k in state_transition_function.keys()) - input_alphabet
     if non_elements_of_states:
         raise StateTransitionFunctionError(
             "The following states passed to the state transition function are "
             f"not elements of the passed states: {non_elements_of_states}"
         )
-    if non_elements_of_alphabet:
+    if non_elements_of_input_alphabet:
         raise StateTransitionFunctionError(
             "The following letters passed to the state transition function are "
-            f"not elements of the passed alphebet: {non_elements_of_alphabet}"
+            f"not elements of the passed alphebet: {non_elements_of_input_alphabet}"
         )
 
     # Checking that values valid states
@@ -109,15 +109,15 @@ def _validate_final_states(final_states: Set[State], states: Set[State]) -> None
 class FiniteStateMachine:
     def __init__(
         self,
-        alphabet: Set[Letter],
+        input_alphabet: Set[InputLetter],
         states: Set[State],
         initial_state: State,
-        state_transition_function: Dict[Tuple[State, Letter], State],
+        state_transition_function: Dict[Tuple[State, InputLetter], State],
         final_states: Set[State],
     ) -> None:
 
-        _validate_alphabet(alphabet)
-        self.alphabet = alphabet
+        _validate_input_alphabet(input_alphabet)
+        self.input_alphabet = input_alphabet
 
         _validate_states(states)
         self.states = states
@@ -125,7 +125,7 @@ class FiniteStateMachine:
         _validate_initial_state(initial_state, states)
         self.initial_state = initial_state
 
-        _validate_state_transition_function(state_transition_function, states, alphabet)
+        _validate_state_transition_function(state_transition_function, states, input_alphabet)
         self.state_transition_function = state_transition_function
 
         _validate_final_states(final_states, states)
@@ -133,7 +133,7 @@ class FiniteStateMachine:
 
         return
 
-    def accepts(self, seq: List[Letter], print_path: bool = False) -> bool:
+    def accepts(self, seq: List[InputLetter], print_path: bool = False) -> bool:
 
         state_map = f"[{self.initial_state}]"
         current_state = self.initial_state
