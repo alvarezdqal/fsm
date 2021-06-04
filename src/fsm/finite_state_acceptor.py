@@ -3,7 +3,7 @@ from typing import Dict, Generic, List, Set, Tuple
 
 from fsm.exceptions import StateTransitionError
 from fsm.finite_state_machine import FiniteStateMachine
-from fsm.typing import InputLetter, State
+from fsm.typevars import InputLetter, State
 from fsm.validation import validate_final_states
 
 

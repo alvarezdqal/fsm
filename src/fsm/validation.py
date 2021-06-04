@@ -8,7 +8,7 @@ from fsm.exceptions import (
     StatesInitialisationError,
     StateTransitionFunctionInitialisationError,
 )
-from fsm.typing import InputLetter, OutputLetter, State
+from fsm.typevars import InputLetter, OutputLetter, State
 
 
 def validate_alphabet(alphabet: Set[Union[InputLetter, OutputLetter]]) -> None:

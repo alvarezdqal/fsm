@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, Generic, Set, Tuple
 
-from fsm.typing import InputLetter, State
+from fsm.typevars import InputLetter, State
 from fsm.validation import (
     validate_alphabet,
     validate_initial_state,
