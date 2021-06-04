@@ -25,7 +25,7 @@ class FiniteStateAcceptor(FiniteStateMachine):
             state_transition_function=state_transition_function,
         )
 
-        validate_final_states(final_states, states)
+        validate_final_states(final_states=final_states, states=states)
         self.final_states = final_states
 
     def accepts(self, seq: List[InputLetter], print_path: bool = False) -> bool:

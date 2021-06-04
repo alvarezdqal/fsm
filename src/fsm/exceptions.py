@@ -10,6 +10,10 @@ class InitialStateInitialisationError(Exception):
     pass
 
 
+class OutputFunctionInitialisationError(Exception):
+    pass
+
+
 class StatesInitialisationError(Exception):
     pass
 
@@ -19,4 +23,8 @@ class StateTransitionError(Exception):
 
 
 class StateTransitionFunctionInitialisationError(Exception):
+    pass
+
+
+class TransductionError(Exception):
     pass

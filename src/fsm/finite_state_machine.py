@@ -20,16 +20,20 @@ class FiniteStateMachine:
         state_transition_function: Dict[Tuple[State, InputLetter], State],
     ) -> None:
 
-        validate_alphabet(input_alphabet)
+        validate_alphabet(alphabet=input_alphabet)
         self.input_alphabet = input_alphabet
 
-        validate_states(states)
+        validate_states(states=states)
         self.states = states
 
-        validate_initial_state(initial_state, states)
+        validate_initial_state(initial_state=initial_state, states=states)
         self.initial_state = initial_state
 
-        validate_state_transition_function(state_transition_function, states, input_alphabet)
+        validate_state_transition_function(
+            state_transition_function=state_transition_function,
+            input_alphabet=input_alphabet,
+            states=states,
+        )
         self.state_transition_function = state_transition_function
 
         return

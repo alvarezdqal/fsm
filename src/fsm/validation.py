@@ -4,6 +4,7 @@ from fsm.exceptions import (
     AlphabetInitialisationError,
     FinalStatesInitialisationError,
     InitialStateInitialisationError,
+    OutputFunctionInitialisationError,
     StatesInitialisationError,
     StateTransitionFunctionInitialisationError,
 )
@@ -51,15 +52,49 @@ def validate_initial_state(initial_state: State, states: Set[State]) -> None:
     return
 
 
-def validate_output_function(output_function: Dict[Tuple[State, InputLetter], OutputLetter]) -> None:
-    # TODO
+def validate_output_function(
+    output_function: Dict[Tuple[State, InputLetter], OutputLetter],
+    input_alphabet: Set[InputLetter],
+    states: Set[State],
+    output_alphabet: Set[OutputLetter],
+) -> None:
+
+    # Checking that keys tuples of length 2
+    non_tuples_of_length_two = set(k for k in output_function.keys() if not isinstance(k, tuple) or len(k) != 2)
+    if non_tuples_of_length_two:
+        raise OutputFunctionInitialisationError(
+            f"The following keys passed to the output function are not tuples of length 2: {non_tuples_of_length_two}"
+        )
+
+    # Checking that keys valid elements of cross-product of states and input_alphabet
+    non_elements_of_states = set(k[0] for k in output_function.keys()) - states
+    non_elements_of_input_alphabet = set(k[1] for k in output_function.keys()) - input_alphabet
+    if non_elements_of_states:
+        raise OutputFunctionInitialisationError(
+            "The following states passed to the output function are "
+            f"not elements of the passed states: {non_elements_of_states}"
+        )
+    if non_elements_of_input_alphabet:
+        raise OutputFunctionInitialisationError(
+            "The following letters passed to the output function are "
+            f"not elements of the passed input alphabet: {non_elements_of_input_alphabet}"
+        )
+
+    # Checking that values elements of output_alphabet
+    non_elements_of_output_alphabet = set(output_function.values()) - output_alphabet
+    if non_elements_of_output_alphabet:
+        raise OutputFunctionInitialisationError(
+            "The following states passed to the output function are "
+            f"not elements of the passed states: {non_elements_of_output_alphabet}"
+        )
+
     return
 
 
 def validate_state_transition_function(
     state_transition_function: Dict[Tuple[State, InputLetter], State],
-    states: Set[State],
     input_alphabet: Set[InputLetter],
+    states: Set[State],
 ) -> None:
 
     # Checking that keys tuples of length 2
@@ -83,7 +118,7 @@ def validate_state_transition_function(
     if non_elements_of_input_alphabet:
         raise StateTransitionFunctionInitialisationError(
             "The following letters passed to the state transition function are "
-            f"not elements of the passed alphebet: {non_elements_of_input_alphabet}"
+            f"not elements of the passed input alphabet: {non_elements_of_input_alphabet}"
         )
 
     # Checking that values valid states
