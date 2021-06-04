@@ -33,6 +33,7 @@ class FiniteStateAcceptor(FiniteStateMachine):
         state_map = f"[{self.initial_state}]"
         current_state: State = self.initial_state
         for elem in seq:
+
             try:
                 next_state: State = self.state_transition_function[(current_state, elem)]
             except KeyError:
@@ -40,8 +41,11 @@ class FiniteStateAcceptor(FiniteStateMachine):
                     "The following encountered (state, input) pair is "
                     f"undefined in the state transition fuction: ({current_state},{elem})"
                 ) from None
+
             current_state = next_state
+
             state_map += f" --({elem})-> [{current_state}]"
+
             if current_state in self.final_states:
                 break
 

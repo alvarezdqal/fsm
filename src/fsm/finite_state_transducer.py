@@ -43,7 +43,7 @@ class FiniteStateTransducer(FiniteStateMachine):
 
         state_map = f"[{self.initial_state}]"
         output_seq: List[OutputLetter] = []
-        current_state = self.initial_state
+        current_state: State = self.initial_state
         for elem in seq:
 
             try:
